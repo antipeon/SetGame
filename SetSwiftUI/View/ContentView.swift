@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    let gameViewModel: ViewModel
+    @ObservedObject var gameViewModel: ViewModel
     
     var body: some View {
         AspectVGrid(items: gameViewModel.cardsInPlay, aspectRatio: 2/3, content: {

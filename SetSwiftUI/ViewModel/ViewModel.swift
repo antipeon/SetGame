@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ViewModel {
+class ViewModel: ObservableObject {
     static func createGame() -> Game {
         return Game()
     }
@@ -16,7 +16,7 @@ class ViewModel {
         game.cardsInPlay
     }
     
-    private var game = createGame()
+    @Published private var game = createGame()
     
     // MARK: - Intent(s)
     func choose(_ card: Card) {

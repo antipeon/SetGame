@@ -43,10 +43,18 @@ struct Game {
     }
     
     mutating func choose(_ card: Card) {
+        print("choose card \(card)")
+        
         guard let targetCard = cardsInPlay.first(where: {
             $0 == card
         }) else {
             fatalError("no such card")
+        }
+        
+        if let index = selectedCards.firstIndex(of: targetCard) {
+            selectedCards.remove(at: index)
+        } else {
+            selectedCards.append(targetCard)
         }
         // TODO: implement more complicated selection according to game rules
         selectedCards.append(targetCard)
