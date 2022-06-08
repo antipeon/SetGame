@@ -16,18 +16,45 @@ struct CardView: View {
     
     var body: some View {
         ZStack {
-            // TODO: replace stub
+            // TODO: draw actual shape
             
             let shape = RoundedRectangle(cornerRadius: 30.0)
-            shape.fill().foregroundColor(.blue)
             shape.strokeBorder(lineWidth: 3.0).foregroundColor(.red)
             VStack {
-                ForEach(0..<3, content: { _ in
-                    Circle()
+                ForEach(0..<card.number.rawValue, content: { _ in
+                    let shape = Circle()
+                    
+                    apply(shading: card.shading, to: shape)
+                    
                 })
             }
-            .foregroundColor(.green)
+            .foregroundColor(card.color.toColor())
             .padding()
+        }
+    }
+    
+    @ViewBuilder
+    private func apply<T: View & Shape & InsettableShape>(shading: State, to shape: T) -> some View {
+        switch shading {
+        case .one:
+            shape.fill()
+        case .two:
+            shape.strokeBorder(lineWidth: 3.0)
+        case .three:
+            shape.fill().opacity(0.3)
+        }
+    }
+}
+
+extension State {
+    func toColor() -> Color {
+        switch self {
+        case .one:
+            return .blue
+        case .two:
+            return .red
+        case .three:
+            return .green
         }
     }
 }

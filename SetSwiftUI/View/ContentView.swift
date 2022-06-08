@@ -18,7 +18,7 @@ struct ContentView: View {
                     gameViewModel.choose(card)
                 }
         })
-        .foregroundColor(.red)
+        .foregroundColor(.yellow)
         .padding(.horizontal)
     }
 }
