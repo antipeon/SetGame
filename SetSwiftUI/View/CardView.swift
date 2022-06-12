@@ -9,22 +9,31 @@ import SwiftUI
 
 struct CardView: View {
     private let card: Card
-    
-    init(card: Card) {
+    private let isSelected: Bool
+    private let isMatched: Bool
+    init(card: Card, isSelected: Bool, isMatched: Bool) {
         self.card = card
+        self.isSelected = isSelected
+        self.isMatched = isMatched
     }
     
     var body: some View {
         ZStack {
-            // TODO: draw actual shape
-            
             let shape = RoundedRectangle(cornerRadius: 30.0)
-            shape.strokeBorder(lineWidth: 3.0).foregroundColor(.red)
+            
+            shape.strokeBorder(lineWidth: 3.0)
+                .foregroundColor(borderColor)
             VStack {
-                ForEach(0..<card.number.rawValue, content: { _ in
-                    let shape = Circle()
-                    
-                    apply(shading: card.shading, to: shape)
+                ForEach(0..<card.number.rawValue, id:\.self, content: { _ in
+                    // TODO: draw actual shape
+                    switch card.shape {
+                    case .one:
+                        apply(shading: card.shading, to: Circle())
+                    case .two:
+                        apply(shading: card.shading, to: Ellipse())
+                    case .three:
+                        apply(shading: card.shading, to: Rectangle())
+                    }
                     
                 })
             }
@@ -34,15 +43,40 @@ struct CardView: View {
     }
     
     @ViewBuilder
-    private func apply<T: View & Shape & InsettableShape>(shading: State, to shape: T) -> some View {
+    private func strokedSymbol<T: Shape>(shape: T) -> some View {
+        shape.stroke(lineWidth: 3.0)
+    }
+    
+    @ViewBuilder
+    private func filledSymbol<T: Shape>(shape: T) -> some View {
+        shape.fill()
+    }
+    
+    @ViewBuilder
+    private func shadedSymbol<T: Shape>(shape: T) -> some View {
+        shape.fill().opacity(0.3)
+    }
+    
+    @ViewBuilder
+    private func apply<T: Shape>(shading: State, to shape: T) -> some View {
         switch shading {
         case .one:
-            shape.fill()
+            filledSymbol(shape: shape)
         case .two:
-            shape.strokeBorder(lineWidth: 3.0)
+            strokedSymbol(shape: shape)
         case .three:
-            shape.fill().opacity(0.3)
+            shadedSymbol(shape: shape)
         }
+    }
+    
+    var borderColor: Color {
+        if isMatched {
+            return .red
+        }
+        if isSelected {
+            return .yellow
+        }
+        return .black
     }
 }
 

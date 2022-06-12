@@ -8,12 +8,12 @@
 import Foundation
 
 struct Game {
-    private var deck = Deck()
+    private(set) var deck = Deck()
     private(set) var cardsInPlay = [Card]()
-    private var selectedCards = [Card]()
-    private var matchedCards = [Card]()
+    private(set) var selectedCards = [Card]()
+    private(set) var matchedCards = [Card]()
     
-    private var score = 0
+    private(set) var score = 0
     
     init() {
         deck = Deck()
@@ -29,6 +29,7 @@ struct Game {
         score = 0
         selectedCards = []
         matchedCards = []
+        cardsInPlay = []
         for _ in 0..<Constants.initialNumberOfCards {
             _ = drawCard()
         }
@@ -43,7 +44,35 @@ struct Game {
     }
     
     mutating func choose(_ card: Card) {
-        print("choose card \(card)")
+        //deselection
+        if let index = selectedCards.firstIndex(of: card) {
+            if selectedCards.count < Constants.matchedNumber {
+                score -= Constants.deselectPunishment
+                selectedCards.remove(at: index)
+            }
+            
+            return
+        }
+        
+        // react to match or mismatch
+        if selectedCards.count == Constants.matchedNumber {
+            if !matchedCards.isEmpty {
+                print("it's a match")
+                score += Constants.matchReward
+            } else {
+                print("it's a mismatch")
+                score -= Constants.mismatchPunishment
+            }
+            
+            if !matchedCards.isEmpty {
+                drawCards()
+            }
+            
+            removeCardsIfMatched()
+            
+            selectedCards.removeAll()
+        }
+        
         
         guard let targetCard = cardsInPlay.first(where: {
             $0 == card
@@ -51,17 +80,50 @@ struct Game {
             fatalError("no such card")
         }
         
-        if let index = selectedCards.firstIndex(of: targetCard) {
-            selectedCards.remove(at: index)
-        } else {
-            selectedCards.append(targetCard)
-        }
-        // TODO: implement more complicated selection according to game rules
+        // register match
         selectedCards.append(targetCard)
+        if selectedCards.count == Constants.matchedNumber {
+            checkMatch()
+        }
+    }
+    
+    private mutating func removeCardsIfMatched() {
+        if !matchedCards.isEmpty {
+            
+            cardsInPlay.removeAll(where: {
+                matchedCards.contains($0)
+            })
+            matchedCards.removeAll()
+        }
+    }
+    
+    mutating func checkMatch() {
+        let isMatch = selectedCards.first!.isMatch(with: selectedCards[1], and: selectedCards[2])
+        if isMatch {
+            matchedCards = selectedCards
+        }
+    }
+    
+    private mutating func drawCards() {
+        for _ in 0..<Constants.matchedNumber {
+            _ = drawCard()
+        }
+    }
+    
+    mutating func dealMoreCards() {
+        score -= Constants.dealMorePunishment
+        removeCardsIfMatched()
+        drawCards()
     }
     
     struct Constants {
         static let initialNumberOfCards = 24
+        static let matchedNumber = 3
+        
+        static let deselectPunishment = 1
+        static let matchReward = 3
+        static let mismatchPunishment = 2
+        static let dealMorePunishment = 3
     }
     
 }

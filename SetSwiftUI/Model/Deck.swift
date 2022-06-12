@@ -24,6 +24,10 @@ struct Deck {
         cards.shuffle()
     }
     
+    var size: Int {
+        return cards.count
+    }
+    
     mutating func draw() -> Card? {
         return cards.popLast()
     }
