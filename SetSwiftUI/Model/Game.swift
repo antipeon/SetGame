@@ -35,7 +35,7 @@ struct Game {
         }
     }
     
-    mutating func drawCard() -> Card? {
+    private mutating func drawCard() -> Card? {
         guard let card = deck.draw() else {
             return nil
         }
@@ -97,7 +97,7 @@ struct Game {
         }
     }
     
-    mutating func checkMatch() {
+    private mutating func checkMatch() {
         let isMatch = selectedCards.first!.isMatch(with: selectedCards[1], and: selectedCards[2])
         if isMatch {
             matchedCards = selectedCards
@@ -125,5 +125,4 @@ struct Game {
         static let mismatchPunishment = 2
         static let dealMorePunishment = 3
     }
-    
 }

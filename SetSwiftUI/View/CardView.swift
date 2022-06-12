@@ -69,7 +69,7 @@ struct CardView: View {
         }
     }
     
-    var borderColor: Color {
+    private var borderColor: Color {
         if isMatched {
             return .red
         }
