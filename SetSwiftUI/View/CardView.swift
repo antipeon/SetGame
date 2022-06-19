@@ -28,11 +28,11 @@ struct CardView: View {
                     // TODO: draw actual shape
                     switch card.shape {
                     case .one:
-                        apply(shading: card.shading, to: Circle())
-                    case .two:
                         apply(shading: card.shading, to: Ellipse())
-                    case .three:
+                    case .two:
                         apply(shading: card.shading, to: Rectangle())
+                    case .three:
+                        apply(shading: card.shading, to: Diamond())
                     }
                     
                 })
