@@ -12,19 +12,14 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            AspectVGrid(items: gameViewModel.cardsInPlay, aspectRatio: Constants.cardAspectRatio, content: {
-                card in
-                CardView(card: card,
-                         isSelected: gameViewModel.isSelected(card: card),
-                         isMatched: gameViewModel.isMatched(card: card)
-                         )
-                    .onTapGesture {
-                        gameViewModel.choose(card)
-                    }
-            })
-            .foregroundColor(.yellow)
-            .padding(.horizontal)
-            
+            Group {
+                if gameViewModel.cardsInPlay.count < Constants.maxCardsForSwitchToScroll {
+                    aspectGridView
+                } else {
+                    scrollGridView
+                }
+            }
+
             HStack {
                 newGameButton
                 Spacer()
@@ -32,9 +27,41 @@ struct ContentView: View {
                 Spacer()
                 scoreLabel
             }
-            .padding(.horizontal)
+        }
+        .padding(.horizontal)
+    }
+    
+    
+    private var aspectGridView: some View {
+        AspectVGrid(items: gameViewModel.cardsInPlay, aspectRatio: Constants.cardAspectRatio, content: {
+            card in
+            cardView(for: card)
+        })
+    }
+    
+    private var scrollGridView: some View {
+        ScrollView {
+            GeometryReader {
+                geometry in
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 80))], content: {
+                    ForEach(gameViewModel.cardsInPlay, id: \.self) {
+                        cardView(for: $0)
+                            .aspectRatio(Constants.cardAspectRatio, contentMode: .fit)
+                    }
+                })
+            }
             
         }
+    }
+    
+    private func cardView(for card: Card) -> some View {
+        CardView(card: card,
+                 isSelected: gameViewModel.isSelected(card: card),
+                 isMatched: gameViewModel.isMatched(card: card)
+                 )
+            .onTapGesture {
+                gameViewModel.choose(card)
+            }
     }
     
     // MARK: - Labels and Buttons
@@ -67,7 +94,8 @@ struct ContentView: View {
     
     // MARK: - Constants
     struct Constants {
-        static var cardAspectRatio: CGFloat = 2/3;
+        static var cardAspectRatio: CGFloat = 2/3
+        static var maxCardsForSwitchToScroll = 42
     }
 }
 

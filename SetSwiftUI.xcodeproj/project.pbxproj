@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FA42AE9C285F609500E1FBD6 /* Diamond.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA42AE9B285F609500E1FBD6 /* Diamond.swift */; };
 		FA61332F2850E97D00BB4E0D /* AspectVGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA61332E2850E97D00BB4E0D /* AspectVGrid.swift */; };
 		FA61333228510F2E00BB4E0D /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA61333128510F2E00BB4E0D /* ViewModel.swift */; };
 		FADDA9FD284CE32200FC8B63 /* SetSwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADDA9FC284CE32200FC8B63 /* SetSwiftUIApp.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FA42AE9B285F609500E1FBD6 /* Diamond.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diamond.swift; sourceTree = "<group>"; };
 		FA61332E2850E97D00BB4E0D /* AspectVGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AspectVGrid.swift; sourceTree = "<group>"; };
 		FA61333128510F2E00BB4E0D /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		FADDA9F9284CE32200FC8B63 /* SetSwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SetSwiftUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -58,6 +60,7 @@
 				FA61332E2850E97D00BB4E0D /* AspectVGrid.swift */,
 				FADDA9FE284CE32200FC8B63 /* ContentView.swift */,
 				FADDAA11284CEC7B00FC8B63 /* CardView.swift */,
+				FA42AE9B285F609500E1FBD6 /* Diamond.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -185,6 +188,7 @@
 				FADDA9FF284CE32200FC8B63 /* ContentView.swift in Sources */,
 				FADDAA0C284CE43100FC8B63 /* Card.swift in Sources */,
 				FADDAA12284CEC7B00FC8B63 /* CardView.swift in Sources */,
+				FA42AE9C285F609500E1FBD6 /* Diamond.swift in Sources */,
 				FA61333228510F2E00BB4E0D /* ViewModel.swift in Sources */,
 				FADDA9FD284CE32200FC8B63 /* SetSwiftUIApp.swift in Sources */,
 			);
