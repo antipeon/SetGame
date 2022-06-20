@@ -18,6 +18,17 @@ struct CardView: View {
     }
     
     var body: some View {
+        Group {
+            if isMatched {
+                Color.clear
+            } else {
+                cardContent
+            }
+        }
+        
+    }
+    
+    private var cardContent: some View {
         ZStack {
             let shape = RoundedRectangle(cornerRadius: 30.0)
             
