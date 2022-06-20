@@ -36,6 +36,7 @@ struct ContentView: View {
         AspectVGrid(items: gameViewModel.cardsInPlay, aspectRatio: Constants.cardAspectRatio, content: {
             card in
             cardView(for: card)
+                .transition(.scale)
         })
     }
     
@@ -67,7 +68,10 @@ struct ContentView: View {
     // MARK: - Labels and Buttons
     private var dealMoreCardsButton: some View {
         Button {
-            gameViewModel.dealMoreCards()
+            withAnimation {
+                gameViewModel.dealMoreCards()
+            }
+            
         } label: {
             ZStack {
                 Image(systemName: "plus.circle")
