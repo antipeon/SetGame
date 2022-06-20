@@ -69,7 +69,7 @@ struct CardView: View {
     }
     
     @ViewBuilder
-    private func apply<T: Shape>(shading: State, to shape: T) -> some View {
+    private func apply<T: Shape>(shading: ThreeState, to shape: T) -> some View {
         switch shading {
         case .one:
             filledSymbol(shape: shape)
@@ -91,7 +91,7 @@ struct CardView: View {
     }
 }
 
-extension State {
+extension ThreeState {
     func toColor() -> Color {
         switch self {
         case .one:

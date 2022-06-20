@@ -41,7 +41,6 @@ struct ContentView: View {
         AspectVGrid(items: gameViewModel.cardsInPlay, aspectRatio: Constants.cardAspectRatio, content: {
             card in
             cardView(for: card)
-                .transition(.scale)
         })
     }
     
@@ -65,9 +64,10 @@ struct ContentView: View {
                  isSelected: gameViewModel.isSelected(card: card),
                  isMatched: gameViewModel.isMatched(card: card)
                  )
-            .onTapGesture {
-                gameViewModel.choose(card)
-            }
+        .transition(.scale)
+        .onTapGesture {
+            gameViewModel.choose(card)
+        }
     }
     
     // MARK: - Labels and Buttons

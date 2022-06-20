@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum State: Int, CaseIterable {
+enum ThreeState: Int, CaseIterable {
     case one = 1
     case two
     case three
@@ -15,10 +15,10 @@ enum State: Int, CaseIterable {
 
 struct Card: Identifiable {
     var id = UUID()
-    var number: State
-    var shape: State
-    var shading: State
-    var color: State
+    var number: ThreeState
+    var shape: ThreeState
+    var shading: ThreeState
+    var color: ThreeState
 }
 
 extension Card {

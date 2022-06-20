@@ -12,10 +12,10 @@ struct Deck {
     
     init() {
         cards = []
-        for number in State.allCases {
-            for shape in State.allCases {
-                for shading in State.allCases {
-                    for color in State.allCases {
+        for number in ThreeState.allCases {
+            for shape in ThreeState.allCases {
+                for shading in ThreeState.allCases {
+                    for color in ThreeState.allCases {
                         cards.append(Card(number: number, shape: shape, shading: shading, color: color))
                     }
                 }
