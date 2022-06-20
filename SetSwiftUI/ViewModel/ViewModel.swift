@@ -43,6 +43,10 @@ class ViewModel: ObservableObject {
         game.dealMoreCards()
     }
     
+    func dealInitialCards() {
+        game.dealInitialCards()
+    }
+    
     func newGame() {
         game.newGame()
     }

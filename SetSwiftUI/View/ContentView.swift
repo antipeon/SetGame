@@ -19,6 +19,12 @@ struct ContentView: View {
                     scrollGridView
                 }
             }
+            .onAppear {
+                // deal cards to begin game
+                withAnimation {
+                    gameViewModel.dealInitialCards()
+                }
+            }
 
             HStack {
                 newGameButton
@@ -30,7 +36,6 @@ struct ContentView: View {
         }
         .padding(.horizontal)
     }
-    
     
     private var aspectGridView: some View {
         AspectVGrid(items: gameViewModel.cardsInPlay, aspectRatio: Constants.cardAspectRatio, content: {
@@ -83,7 +88,9 @@ struct ContentView: View {
     
     private var newGameButton: some View {
         Button {
-            gameViewModel.newGame()
+            withAnimation {
+                gameViewModel.newGame()
+            }
         } label: {
             Image(systemName: "arrow.counterclockwise").font(.largeTitle)
         }
