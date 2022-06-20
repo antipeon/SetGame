@@ -56,6 +56,7 @@ struct Game {
         
         // react to match or mismatch
         if selectedCards.count == Constants.matchedNumber {
+            checkMatch()
             if !matchedCards.isEmpty {
                 print("it's a match")
                 score += Constants.matchReward
@@ -63,12 +64,6 @@ struct Game {
                 print("it's a mismatch")
                 score -= Constants.mismatchPunishment
             }
-            
-            if !matchedCards.isEmpty {
-                drawCards()
-            }
-            
-            removeCardsIfMatched()
             
             selectedCards.removeAll()
         }
@@ -80,11 +75,8 @@ struct Game {
             fatalError("no such card")
         }
         
-        // register match
+        // add to selected
         selectedCards.append(targetCard)
-        if selectedCards.count == Constants.matchedNumber {
-            checkMatch()
-        }
     }
     
     private mutating func removeCardsIfMatched() {
@@ -100,7 +92,7 @@ struct Game {
     private mutating func checkMatch() {
         let isMatch = selectedCards.first!.isMatch(with: selectedCards[1], and: selectedCards[2])
         if isMatch {
-            matchedCards = selectedCards
+            matchedCards += selectedCards
         }
     }
     
