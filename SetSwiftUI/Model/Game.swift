@@ -12,27 +12,26 @@ struct Game {
     private(set) var cardsInPlay = [Card]()
     private(set) var selectedCards = [Card]()
     private(set) var matchedCards = [Card]()
+    private(set) var discardedCards = [Card]()
     
     private(set) var score = 0
     
     init() {
-        deck = Deck()
-        cardsInPlay = [Card]()
-        selectedCards = [Card]()
-        matchedCards = [Card]()
-        score = 0
-        newGame()
+        clearGameInfo()
     }
     
     mutating func newGame() {
+        clearGameInfo()
+        dealInitialCards()
+    }
+    
+    private mutating func clearGameInfo() {
         deck = Deck()
         score = 0
         selectedCards = []
         matchedCards = []
         cardsInPlay = []
-        for _ in 0..<Constants.initialNumberOfCards {
-            _ = drawCard()
-        }
+        discardedCards = []
     }
     
     private mutating func drawCard() -> Card? {
@@ -41,6 +40,12 @@ struct Game {
         }
         cardsInPlay.append(card)
         return card
+    }
+    
+    mutating func dealInitialCards() {
+        for _ in 0..<Constants.initialNumberOfCards {
+            _ = drawCard()
+        }
     }
     
     mutating func choose(_ card: Card) {
@@ -56,10 +61,11 @@ struct Game {
         
         // react to match or mismatch
         if selectedCards.count == Constants.matchedNumber {
-            checkMatch()
-            if !matchedCards.isEmpty {
+            let isMatch = checkMatch()
+            if isMatch {
                 print("it's a match")
                 score += Constants.matchReward
+                discardLastMatchedCards()
             } else {
                 print("it's a mismatch")
                 score -= Constants.mismatchPunishment
@@ -79,7 +85,7 @@ struct Game {
         selectedCards.append(targetCard)
     }
     
-    private mutating func removeCardsIfMatched() {
+    private mutating func removeMatchedCardsFromPlayAndClear() {
         if !matchedCards.isEmpty {
             
             cardsInPlay.removeAll(where: {
@@ -89,11 +95,19 @@ struct Game {
         }
     }
     
-    private mutating func checkMatch() {
+    private mutating func discardLastMatchedCards() {
+        guard matchedCards.count >= 3 else {
+            fatalError("no match happened")
+        }
+        discardedCards += matchedCards[matchedCards.endIndex - 2..<matchedCards.endIndex]
+    }
+    
+    private mutating func checkMatch() -> Bool {
         let isMatch = selectedCards.first!.isMatch(with: selectedCards[1], and: selectedCards[2])
         if isMatch {
             matchedCards += selectedCards
         }
+        return isMatch
     }
     
     private mutating func drawCards() {
@@ -104,7 +118,7 @@ struct Game {
     
     mutating func dealMoreCards() {
         score -= Constants.dealMorePunishment
-        removeCardsIfMatched()
+        removeMatchedCardsFromPlayAndClear()
         drawCards()
     }
     
