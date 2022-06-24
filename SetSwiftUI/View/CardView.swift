@@ -22,7 +22,7 @@ struct CardView: View {
             cardContent
                 .rotationEffect(Angle.degrees(isMatched ? 360 : 0))
                 .opacity(isMatched ? 0 : 1)
-                .animation(Animation.easeInOut(duration: 1.0))
+                .animation(Animation.easeInOut)
         }
         
     }
