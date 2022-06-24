@@ -65,8 +65,11 @@ struct ContentView: View {
                  isMatched: gameViewModel.isMatched(card: card)
                  )
         .transition(.scale)
+        .shakify(data: CGFloat(gameViewModel.mismatchCounter))
         .onTapGesture {
-            gameViewModel.choose(card)
+            withAnimation {
+                gameViewModel.choose(card)
+            }
         }
     }
     

@@ -30,6 +30,8 @@ class ViewModel: ObservableObject {
     
     @Published private var game = createGame()
     
+    @Published public var mismatchCounter = 0;
+    
     var score: Int {
         game.score
     }
@@ -37,6 +39,9 @@ class ViewModel: ObservableObject {
     // MARK: - Intent(s)
     func choose(_ card: Card) {
         game.choose(card)
+        if game.mismatchHappened {
+            mismatchCounter += 1
+        }
     }
     
     func dealMoreCards() {

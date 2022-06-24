@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FA19BBDF2865E0C600D6BB43 /* Shake.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA19BBDE2865E0C600D6BB43 /* Shake.swift */; };
 		FA42AE9C285F609500E1FBD6 /* Diamond.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA42AE9B285F609500E1FBD6 /* Diamond.swift */; };
 		FA61332F2850E97D00BB4E0D /* AspectVGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA61332E2850E97D00BB4E0D /* AspectVGrid.swift */; };
 		FA61333228510F2E00BB4E0D /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA61333128510F2E00BB4E0D /* ViewModel.swift */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FA19BBDE2865E0C600D6BB43 /* Shake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shake.swift; sourceTree = "<group>"; };
 		FA42AE9B285F609500E1FBD6 /* Diamond.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diamond.swift; sourceTree = "<group>"; };
 		FA61332E2850E97D00BB4E0D /* AspectVGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AspectVGrid.swift; sourceTree = "<group>"; };
 		FA61333128510F2E00BB4E0D /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
@@ -46,6 +48,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FA19BBDD2865E0B200D6BB43 /* Animation */ = {
+			isa = PBXGroup;
+			children = (
+				FA19BBDE2865E0C600D6BB43 /* Shake.swift */,
+			);
+			path = Animation;
+			sourceTree = "<group>";
+		};
 		FA61333028510F1700BB4E0D /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -57,6 +67,7 @@
 		FA61333328510FCD00BB4E0D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				FA19BBDD2865E0B200D6BB43 /* Animation */,
 				FA61332E2850E97D00BB4E0D /* AspectVGrid.swift */,
 				FADDA9FE284CE32200FC8B63 /* ContentView.swift */,
 				FADDAA11284CEC7B00FC8B63 /* CardView.swift */,
@@ -188,6 +199,7 @@
 				FADDA9FF284CE32200FC8B63 /* ContentView.swift in Sources */,
 				FADDAA0C284CE43100FC8B63 /* Card.swift in Sources */,
 				FADDAA12284CEC7B00FC8B63 /* CardView.swift in Sources */,
+				FA19BBDF2865E0C600D6BB43 /* Shake.swift in Sources */,
 				FA42AE9C285F609500E1FBD6 /* Diamond.swift in Sources */,
 				FA61333228510F2E00BB4E0D /* ViewModel.swift in Sources */,
 				FADDA9FD284CE32200FC8B63 /* SetSwiftUIApp.swift in Sources */,

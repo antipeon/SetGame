@@ -19,11 +19,10 @@ struct CardView: View {
     
     var body: some View {
         Group {
-            if isMatched {
-                Color.clear
-            } else {
-                cardContent
-            }
+            cardContent
+                .rotationEffect(Angle.degrees(isMatched ? 360 : 0))
+                .opacity(isMatched ? 0 : 1)
+                .animation(Animation.easeInOut(duration: 1.0))
         }
         
     }
@@ -34,6 +33,7 @@ struct CardView: View {
             
             shape.strokeBorder(lineWidth: 3.0)
                 .foregroundColor(borderColor)
+                .animation(Animation.linear)
             VStack {
                 ForEach(0..<card.number.rawValue, id:\.self, content: { _ in
                     // TODO: draw actual shape
@@ -52,22 +52,19 @@ struct CardView: View {
             .padding()
         }
     }
-    
-    @ViewBuilder
+
     private func strokedSymbol<T: Shape>(shape: T) -> some View {
         shape.stroke(lineWidth: 3.0)
     }
-    
-    @ViewBuilder
+
     private func filledSymbol<T: Shape>(shape: T) -> some View {
         shape.fill()
     }
-    
-    @ViewBuilder
+
     private func shadedSymbol<T: Shape>(shape: T) -> some View {
         shape.fill().opacity(0.3)
     }
-    
+
     @ViewBuilder
     private func apply<T: Shape>(shading: ThreeState, to shape: T) -> some View {
         switch shading {
@@ -81,9 +78,6 @@ struct CardView: View {
     }
     
     private var borderColor: Color {
-        if isMatched {
-            return .red
-        }
         if isSelected {
             return .yellow
         }

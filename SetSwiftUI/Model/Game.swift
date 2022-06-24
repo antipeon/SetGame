@@ -48,7 +48,11 @@ struct Game {
         }
     }
     
-    mutating func choose(_ card: Card) {
+    private(set) var mismatchHappened = false
+    
+    mutating func choose(_ card: Card){
+        mismatchHappened = false
+        
         //deselection
         if let index = selectedCards.firstIndex(of: card) {
             if selectedCards.count < Constants.matchedNumber {
@@ -68,6 +72,7 @@ struct Game {
                 discardLastMatchedCards()
             } else {
                 print("it's a mismatch")
+                mismatchHappened = true
                 score -= Constants.mismatchPunishment
             }
             
