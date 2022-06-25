@@ -11,19 +11,26 @@ struct CardView: View {
     private let card: Card
     private let isSelected: Bool
     private let isMatched: Bool
-    init(card: Card, isSelected: Bool, isMatched: Bool) {
+    private let isFaceUp: Bool
+    init(card: Card, isSelected: Bool, isMatched: Bool, isFaceUp: Bool) {
         self.card = card
         self.isSelected = isSelected
         self.isMatched = isMatched
+        self.isFaceUp = isFaceUp
     }
     
     var body: some View {
         Group {
-            cardContent
-                .rotationEffect(Angle.degrees(isMatched ? 360 : 0))
-                .opacity(isMatched ? 0 : 1)
-                .animation(Animation.easeInOut)
+            if isFaceUp {
+                cardContent
+            } else {
+                RoundedRectangle(cornerRadius: Constants.cornerRadius)
+                    .foregroundColor(Constants.defaultColor)
+            }
         }
+        .rotationEffect(Angle.degrees(isMatched ? 360 : 0))
+        .opacity(isMatched ? 0 : 1)
+        .animation(Animation.easeInOut)
         
     }
     
@@ -79,10 +86,18 @@ struct CardView: View {
     
     private var borderColor: Color {
         if isSelected {
-            return .yellow
+            return Constants.defaultColor
         }
-        return .black
+        return Constants.borderColor
     }
+    
+    // MARK: - Constants
+    struct Constants {
+        static var cornerRadius: CGFloat = 30.0
+        static var defaultColor: Color = .yellow
+        static var borderColor: Color = .black
+    }
+    
 }
 
 extension ThreeState {

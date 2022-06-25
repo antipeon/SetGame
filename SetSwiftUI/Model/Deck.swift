@@ -8,7 +8,7 @@
 import Foundation
 
 struct Deck {
-    private var cards: [Card]
+    private(set) var cards: [Card]
     
     init() {
         cards = []

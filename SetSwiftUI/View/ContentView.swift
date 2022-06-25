@@ -29,7 +29,15 @@ struct ContentView: View {
             HStack {
                 newGameButton
                 Spacer()
-                dealMoreCardsButton
+                deckBody
+                    .onTapGesture {
+                        withAnimation {
+                            gameViewModel.dealMoreCards()
+                        }
+                    }
+                    .disabled(gameViewModel.isDeckEmpty)
+                Spacer()
+                discardPileBody
                 Spacer()
                 scoreLabel
             }
@@ -59,11 +67,8 @@ struct ContentView: View {
         }
     }
     
-    private func cardView(for card: Card) -> some View {
-        CardView(card: card,
-                 isSelected: gameViewModel.isSelected(card: card),
-                 isMatched: gameViewModel.isMatched(card: card)
-                 )
+    private func cardView(for card: Card, isFaceUp: Bool = true) -> some View {
+        rawCardView(for: card, isFaceUp: true)
         .transition(.scale)
         .shakify(data: CGFloat(gameViewModel.mismatchCounter))
         .onTapGesture {
@@ -73,21 +78,34 @@ struct ContentView: View {
         }
     }
     
-    // MARK: - Labels and Buttons
-    private var dealMoreCardsButton: some View {
-        Button {
-            withAnimation {
-                gameViewModel.dealMoreCards()
-            }
-            
-        } label: {
-            ZStack {
-                Image(systemName: "plus.circle")
-                    .font(.largeTitle)
+    @ViewBuilder
+    private func rawCardView(for card: Card, isFaceUp: Bool = true) -> some View {
+        CardView(card: card,
+                 isSelected: gameViewModel.isSelected(card: card),
+                 isMatched: gameViewModel.isMatched(card: card),
+                 isFaceUp: isFaceUp
+                 )
+    }
+    
+    private var deckBody: some View {
+        deckBody(for: gameViewModel.cardsInDeck, isFaceUp: false)
+    }
+    
+    private var discardPileBody: some View {
+        deckBody(for: gameViewModel.discardedCards)
+    }
+    
+    @ViewBuilder
+    private func deckBody(for cards: [Card], isFaceUp: Bool = true) -> some View {
+        ZStack {
+            ForEach(cards, id: \.self) {
+                rawCardView(for: $0, isFaceUp: isFaceUp)
             }
         }
-        .disabled(gameViewModel.isDeckEmpty)
+        .frame(width: Constants.deckWidth, height: Constants.deckWidth / Constants.cardAspectRatio)
     }
+    
+    // MARK: - Labels and Buttons
     
     private var newGameButton: some View {
         Button {
@@ -110,6 +128,7 @@ struct ContentView: View {
     struct Constants {
         static var cardAspectRatio: CGFloat = 2/3
         static var maxCardsForSwitchToScroll = 42
+        static var deckWidth: CGFloat = 80
     }
 }
 

@@ -16,6 +16,14 @@ class ViewModel: ObservableObject {
         game.cardsInPlay
     }
     
+    var cardsInDeck: [Card] {
+        game.deck.cards
+    }
+    
+    var discardedCards: [Card] {
+        game.discardedCards
+    }
+    
     func isSelected(card: Card) -> Bool {
         return game.selectedCards.contains(card)
     }
