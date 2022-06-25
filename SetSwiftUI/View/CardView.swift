@@ -25,7 +25,7 @@ struct CardView: View {
                 cardContent
             } else {
                 RoundedRectangle(cornerRadius: Constants.cornerRadius)
-                    .foregroundColor(Constants.defaultColor)
+                    .foregroundColor(Constants.themeColor)
             }
         }
         .rotationEffect(Angle.degrees(isMatched ? 360 : 0))
@@ -37,6 +37,9 @@ struct CardView: View {
     private var cardContent: some View {
         ZStack {
             let shape = RoundedRectangle(cornerRadius: 30.0)
+            
+            shape
+                .foregroundColor(Constants.cardFrontColor)
             
             shape.strokeBorder(lineWidth: 3.0)
                 .foregroundColor(borderColor)
@@ -86,7 +89,7 @@ struct CardView: View {
     
     private var borderColor: Color {
         if isSelected {
-            return Constants.defaultColor
+            return Constants.themeColor
         }
         return Constants.borderColor
     }
@@ -94,7 +97,8 @@ struct CardView: View {
     // MARK: - Constants
     struct Constants {
         static var cornerRadius: CGFloat = 30.0
-        static var defaultColor: Color = .yellow
+        static var themeColor: Color = .yellow
+        static var cardFrontColor: Color = .white
         static var borderColor: Color = .black
     }
     
