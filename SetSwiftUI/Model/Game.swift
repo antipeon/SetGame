@@ -16,24 +16,6 @@ struct Game {
     
     private(set) var score = 0
     
-    init() {
-        clearGameInfo()
-    }
-    
-    mutating func newGame() {
-        clearGameInfo()
-        dealInitialCards()
-    }
-    
-    private mutating func clearGameInfo() {
-        deck = Deck()
-        score = 0
-        selectedCards = []
-        matchedCards = []
-        cardsInPlay = []
-        discardedCards = []
-    }
-    
     private mutating func drawCard() -> Card? {
         guard let card = deck.draw() else {
             return nil

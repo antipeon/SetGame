@@ -61,6 +61,6 @@ class ViewModel: ObservableObject {
     }
     
     func newGame() {
-        game.newGame()
+        game = ViewModel.createGame()
     }
 }
