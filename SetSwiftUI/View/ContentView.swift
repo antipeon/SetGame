@@ -10,6 +10,10 @@ import SwiftUI
 struct ContentView: View {
     @ObservedObject var gameViewModel: ViewModel
     
+    @State var initialCardsNotDealt = true
+    
+    @Namespace private var dealingNamespace
+    
     var body: some View {
         VStack {
             Group {
@@ -19,12 +23,6 @@ struct ContentView: View {
                     scrollGridView
                 }
             }
-            .onAppear {
-                // deal cards to begin game
-                withAnimation {
-                    gameViewModel.dealInitialCards()
-                }
-            }
 
             HStack {
                 newGameButton
@@ -32,7 +30,13 @@ struct ContentView: View {
                 deckBody
                     .onTapGesture {
                         withAnimation {
-                            gameViewModel.dealMoreCards()
+                            if initialCardsNotDealt {
+                                // deal cards to begin game
+                                gameViewModel.dealInitialCards()
+                                initialCardsNotDealt = false
+                            } else {
+                                gameViewModel.dealMoreCards()
+                            }
                         }
                     }
                     .disabled(gameViewModel.isDeckEmpty)
@@ -110,6 +114,7 @@ struct ContentView: View {
     private var newGameButton: some View {
         Button {
             withAnimation {
+                initialCardsNotDealt = true
                 gameViewModel.newGame()
             }
         } label: {
@@ -135,8 +140,6 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         let gameViewModel = ViewModel()
-        ContentView(gameViewModel: gameViewModel)
-            .preferredColorScheme(.dark)
         ContentView(gameViewModel: gameViewModel)
             .preferredColorScheme(.light)
     }
