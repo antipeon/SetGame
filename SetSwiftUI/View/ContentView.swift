@@ -53,6 +53,7 @@ struct ContentView: View {
         AspectVGrid(items: gameViewModel.cardsInPlay, aspectRatio: Constants.cardAspectRatio, content: {
             card in
             cardView(for: card)
+                .zIndex(zIndex(for: card, in: gameViewModel.cardsInPlay))
         })
     }
     
@@ -63,6 +64,7 @@ struct ContentView: View {
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 80))], content: {
                     ForEach(gameViewModel.cardsInPlay, id: \.self) {
                         cardView(for: $0)
+                            .zIndex(zIndex(for: $0, in: gameViewModel.cardsInPlay))
                             .aspectRatio(Constants.cardAspectRatio, contentMode: .fit)
                     }
                 })
@@ -71,9 +73,17 @@ struct ContentView: View {
         }
     }
     
+    private func zIndex(for card: Card, in cards: [Card], isReverseOrder: Bool = true) -> Double {
+        let cardIndex = cards.firstIndex(where: {
+            card.id == $0.id
+        }) ?? 0
+        return Double(cardIndex) * (isReverseOrder ? -1.0 : 1.0)
+    }
+
     private func cardView(for card: Card, isFaceUp: Bool = true) -> some View {
         rawCardView(for: card, isFaceUp: true)
-        .transition(.scale)
+            .matchedGeometryEffect(id: card.id, in: dealingNamespace)
+            .transition(AnyTransition.asymmetric(insertion: .identity, removal: .scale))
         .shakify(data: CGFloat(gameViewModel.mismatchCounter))
         .onTapGesture {
             withAnimation {
@@ -96,14 +106,17 @@ struct ContentView: View {
     }
     
     private var discardPileBody: some View {
-        deckBody(for: gameViewModel.discardedCards)
+        deckBody(for: gameViewModel.discardedCards, isReverseOrder: false)
     }
     
     @ViewBuilder
-    private func deckBody(for cards: [Card], isFaceUp: Bool = true) -> some View {
+    private func deckBody(for cards: [Card], isReverseOrder: Bool = true, isFaceUp: Bool = true) -> some View {
         ZStack {
             ForEach(cards, id: \.self) {
                 rawCardView(for: $0, isFaceUp: isFaceUp)
+                    .zIndex(zIndex(for: $0, in: cards, isReverseOrder: isReverseOrder))
+                    .matchedGeometryEffect(id: $0.id, in: dealingNamespace)
+                    .transition(AnyTransition.asymmetric(insertion: .identity, removal: .identity))
             }
         }
         .frame(width: Constants.deckWidth, height: Constants.deckWidth / Constants.cardAspectRatio)
