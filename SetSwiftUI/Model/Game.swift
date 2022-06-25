@@ -119,7 +119,9 @@ struct Game {
     
     mutating func dealMoreCards() {
         score -= Constants.dealMorePunishment
-        removeMatchedCardsFromPlayAndClear()
+        if selectedCards.count == Constants.matchedNumber {
+            removeCardsIfMatchedAndClearSelected()
+        }
         drawCards()
     }
     
