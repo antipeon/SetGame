@@ -45,31 +45,45 @@ struct Game {
             return
         }
         
-        // react to match or mismatch
-        if selectedCards.count == Constants.matchedNumber {
-            let isMatch = checkMatch()
-            if isMatch {
-                print("it's a match")
-                score += Constants.matchReward
-                discardLastMatchedCards()
-            } else {
-                print("it's a mismatch")
-                mismatchHappened = true
-                score -= Constants.mismatchPunishment
-            }
-            
-            selectedCards.removeAll()
-        }
-        
-        
+        //selection
         guard let targetCard = cardsInPlay.first(where: {
             $0 == card
         }) else {
             fatalError("no such card")
         }
-        
-        // add to selected
         selectedCards.append(targetCard)
+        
+        // register match or mismatch
+        if selectedCards.count == Constants.matchedNumber {
+            let isMatch = checkMatch()
+            if isMatch {
+                print("it's a match")
+                score += Constants.matchReward
+            } else {
+                print("it's a mismatch")
+                mismatchHappened = true
+                score -= Constants.mismatchPunishment
+            }
+        }
+        
+        if selectedCards.count == Constants.matchedNumber + 1 {
+            guard let lastSelected = selectedCards.last else {
+                fatalError("no selected cards")
+            }
+            removeCardsIfMatchedAndClearSelected()
+            selectedCards.append(lastSelected)
+        }
+    }
+    
+    private mutating func removeCardsIfMatchedAndClearSelected() {
+        // remove if matched; deselect anyway
+
+        if !matchedCards.isEmpty {
+            // match happened the turn before
+            discardLastMatchedCards()
+            removeMatchedCardsFromPlayAndClear()
+        }
+        selectedCards.removeAll()
     }
     
     private mutating func removeMatchedCardsFromPlayAndClear() {
