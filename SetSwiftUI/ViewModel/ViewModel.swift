@@ -36,6 +36,10 @@ class ViewModel: ObservableObject {
         game.deck.size == 0
     }
     
+    func turnNewCards() {
+        game.turnNewCards()
+    }
+    
     @Published private var game = createGame()
     
     @Published public var mismatchCounter = 0;

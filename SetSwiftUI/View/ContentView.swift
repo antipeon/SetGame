@@ -29,7 +29,7 @@ struct ContentView: View {
                 Spacer()
                 deckBody
                     .onTapGesture {
-                        withAnimation {
+                        withAnimation(Animation.easeInOut(duration: 0.75)) {
                             if initialCardsNotDealt {
                                 // deal cards to begin game
                                 gameViewModel.dealInitialCards()
@@ -80,8 +80,8 @@ struct ContentView: View {
         return Double(cardIndex) * (isReverseOrder ? -1.0 : 1.0)
     }
 
-    private func cardView(for card: Card, isFaceUp: Bool = true) -> some View {
-        rawCardView(for: card, isFaceUp: true)
+    private func cardView(for card: Card) -> some View {
+        rawCardView(for: card)
             .matchedGeometryEffect(id: card.id, in: dealingNamespace)
             .transition(AnyTransition.asymmetric(insertion: .identity, removal: .scale))
         .shakify(data: CGFloat(gameViewModel.mismatchCounter))
@@ -90,19 +90,25 @@ struct ContentView: View {
                 gameViewModel.choose(card)
             }
         }
+        .onAppear {
+            withAnimation {
+                gameViewModel.turnNewCards()
+            }
+            
+            
+        }
     }
     
     @ViewBuilder
-    private func rawCardView(for card: Card, isFaceUp: Bool = true) -> some View {
+    private func rawCardView(for card: Card) -> some View {
         CardView(card: card,
                  isSelected: gameViewModel.isSelected(card: card),
-                 isMatched: gameViewModel.isMatched(card: card),
-                 isFaceUp: isFaceUp
+                 isMatched: gameViewModel.isMatched(card: card)
                  )
     }
     
     private var deckBody: some View {
-        deckBody(for: gameViewModel.cardsInDeck, isFaceUp: false)
+        deckBody(for: gameViewModel.cardsInDeck)
     }
     
     private var discardPileBody: some View {
@@ -110,10 +116,10 @@ struct ContentView: View {
     }
     
     @ViewBuilder
-    private func deckBody(for cards: [Card], isReverseOrder: Bool = true, isFaceUp: Bool = true) -> some View {
+    private func deckBody(for cards: [Card], isReverseOrder: Bool = true) -> some View {
         ZStack {
             ForEach(cards, id: \.self) {
-                rawCardView(for: $0, isFaceUp: isFaceUp)
+                rawCardView(for: $0)
                     .zIndex(zIndex(for: $0, in: cards, isReverseOrder: isReverseOrder))
                     .matchedGeometryEffect(id: $0.id, in: dealingNamespace)
                     .transition(AnyTransition.asymmetric(insertion: .identity, removal: .identity))

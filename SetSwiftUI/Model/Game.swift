@@ -30,6 +30,17 @@ struct Game {
         }
     }
     
+    mutating func turnNewCards() {
+        guard !cardsInPlay.isEmpty else {
+            fatalError("no cards in play")
+        }
+        var i = cardsInPlay.count - 1
+        while (i >= 0 && !cardsInPlay[i].isFaceUp) {
+            cardsInPlay[i].isFaceUp.toggle()
+            i -= 1
+        }
+    }
+    
     private(set) var mismatchHappened = false
     
     mutating func choose(_ card: Card){

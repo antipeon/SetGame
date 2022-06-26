@@ -19,6 +19,7 @@ struct Card: Identifiable {
     var shape: ThreeState
     var shading: ThreeState
     var color: ThreeState
+    var isFaceUp: Bool = false
 }
 
 extension Card {

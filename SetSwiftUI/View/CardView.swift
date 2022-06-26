@@ -11,19 +11,16 @@ struct CardView: View {
     private let card: Card
     private let isSelected: Bool
     private let isMatched: Bool
-    private let isFaceUp: Bool
-    init(card: Card, isSelected: Bool, isMatched: Bool, isFaceUp: Bool) {
+    init(card: Card, isSelected: Bool, isMatched: Bool) {
         self.card = card
         self.isSelected = isSelected
         self.isMatched = isMatched
-        self.isFaceUp = isFaceUp
     }
     
     var body: some View {
         cardContent
-            .cardify(isFaceUp: isFaceUp, isSelected: isSelected)
+            .cardify(isFaceUp: card.isFaceUp, isSelected: isSelected)
             .rotationEffect(Angle.degrees(isMatched ? 360 : 0))
-            .animation(Animation.easeInOut(duration: 0.75))
         
     }
     
