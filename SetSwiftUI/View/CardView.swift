@@ -42,7 +42,6 @@ struct CardView: View {
             
             shape.strokeBorder(lineWidth: 3.0)
                 .foregroundColor(borderColor)
-                .animation(Animation.linear)
             VStack {
                 ForEach(0..<card.number.rawValue, id:\.self, content: { _ in
                     // TODO: draw actual shape
