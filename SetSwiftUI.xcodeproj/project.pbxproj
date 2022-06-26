@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		FA19BBDF2865E0C600D6BB43 /* Shake.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA19BBDE2865E0C600D6BB43 /* Shake.swift */; };
+		FA3E37D32867E32E00D4063F /* Cardify.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3E37D22867E32E00D4063F /* Cardify.swift */; };
 		FA42AE9C285F609500E1FBD6 /* Diamond.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA42AE9B285F609500E1FBD6 /* Diamond.swift */; };
 		FA61332F2850E97D00BB4E0D /* AspectVGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA61332E2850E97D00BB4E0D /* AspectVGrid.swift */; };
 		FA61333228510F2E00BB4E0D /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA61333128510F2E00BB4E0D /* ViewModel.swift */; };
@@ -23,6 +24,7 @@
 
 /* Begin PBXFileReference section */
 		FA19BBDE2865E0C600D6BB43 /* Shake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shake.swift; sourceTree = "<group>"; };
+		FA3E37D22867E32E00D4063F /* Cardify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cardify.swift; sourceTree = "<group>"; };
 		FA42AE9B285F609500E1FBD6 /* Diamond.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diamond.swift; sourceTree = "<group>"; };
 		FA61332E2850E97D00BB4E0D /* AspectVGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AspectVGrid.swift; sourceTree = "<group>"; };
 		FA61333128510F2E00BB4E0D /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
@@ -52,6 +54,7 @@
 			isa = PBXGroup;
 			children = (
 				FA19BBDE2865E0C600D6BB43 /* Shake.swift */,
+				FA3E37D22867E32E00D4063F /* Cardify.swift */,
 			);
 			path = Animation;
 			sourceTree = "<group>";
@@ -193,6 +196,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA3E37D32867E32E00D4063F /* Cardify.swift in Sources */,
 				FADDAA0E284CE63600FC8B63 /* Deck.swift in Sources */,
 				FADDAA10284CE88100FC8B63 /* Game.swift in Sources */,
 				FA61332F2850E97D00BB4E0D /* AspectVGrid.swift in Sources */,

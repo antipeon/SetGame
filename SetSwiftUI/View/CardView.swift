@@ -20,28 +20,15 @@ struct CardView: View {
     }
     
     var body: some View {
-        Group {
-            if isFaceUp {
-                cardContent
-            } else {
-                RoundedRectangle(cornerRadius: Constants.cornerRadius)
-                    .foregroundColor(Constants.themeColor)
-            }
-        }
-        .rotationEffect(Angle.degrees(isMatched ? 360 : 0))
-        .animation(Animation.easeInOut(duration: 0.75))
+        cardContent
+            .cardify(isFaceUp: isFaceUp, isSelected: isSelected)
+            .rotationEffect(Angle.degrees(isMatched ? 360 : 0))
+            .animation(Animation.easeInOut(duration: 0.75))
         
     }
     
     private var cardContent: some View {
         ZStack {
-            let shape = RoundedRectangle(cornerRadius: 30.0)
-            
-            shape
-                .foregroundColor(Constants.cardFrontColor)
-            
-            shape.strokeBorder(lineWidth: 3.0)
-                .foregroundColor(borderColor)
             VStack {
                 ForEach(0..<card.number.rawValue, id:\.self, content: { _ in
                     // TODO: draw actual shape
@@ -83,21 +70,6 @@ struct CardView: View {
         case .three:
             shadedSymbol(shape: shape)
         }
-    }
-    
-    private var borderColor: Color {
-        if isSelected {
-            return Constants.themeColor
-        }
-        return Constants.borderColor
-    }
-    
-    // MARK: - Constants
-    struct Constants {
-        static var cornerRadius: CGFloat = 30.0
-        static var themeColor: Color = .yellow
-        static var cardFrontColor: Color = .white
-        static var borderColor: Color = .black
     }
     
 }
