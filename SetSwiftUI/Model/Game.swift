@@ -111,7 +111,7 @@ struct Game {
         guard matchedCards.count >= 3 else {
             fatalError("no match happened")
         }
-        discardedCards += matchedCards[matchedCards.endIndex - 2..<matchedCards.endIndex]
+        discardedCards += matchedCards[matchedCards.endIndex - Constants.matchedNumber..<matchedCards.endIndex]
     }
     
     private mutating func checkMatch() -> Bool {
