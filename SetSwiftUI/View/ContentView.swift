@@ -29,7 +29,7 @@ struct ContentView: View {
                 Spacer()
                 deckBody
                     .onTapGesture {
-                        withAnimation(Animation.easeInOut(duration: 0.75)) {
+                        withAnimation(Animation.easeInOut(duration: Constants.dealAnimationDuration)) {
                             if initialCardsNotDealt {
                                 // deal cards to begin game
                                 gameViewModel.dealInitialCards()
@@ -83,10 +83,10 @@ struct ContentView: View {
     private func cardView(for card: Card) -> some View {
         rawCardView(for: card)
             .matchedGeometryEffect(id: card.id, in: dealingNamespace)
-            .transition(AnyTransition.asymmetric(insertion: .identity, removal: .scale))
+            .transition(AnyTransition.asymmetric(insertion: .identity, removal: .identity))
         .shakify(data: CGFloat(gameViewModel.mismatchCounter))
         .onTapGesture {
-            withAnimation {
+            withAnimation(.easeInOut(duration: Constants.choosingAnimationDuration)) {
                 gameViewModel.choose(card)
             }
         }
@@ -94,8 +94,6 @@ struct ContentView: View {
             withAnimation {
                 gameViewModel.turnNewCards()
             }
-            
-            
         }
     }
     
@@ -153,6 +151,8 @@ struct ContentView: View {
         static var cardAspectRatio: CGFloat = 2/3
         static var maxCardsForSwitchToScroll = 42
         static var deckWidth: CGFloat = 80
+        static var dealAnimationDuration = 0.75
+        static var choosingAnimationDuration = 0.5
     }
 }
 
