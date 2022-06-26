@@ -37,12 +37,12 @@ struct Cardify: AnimatableModifier {
             if rotation < 90 {
                 shape
                     .foregroundColor(Constants.cardFrontColor)
-                shape.strokeBorder(lineWidth: Constants.borderLineWidth)
-                    .foregroundColor(borderColor)
             } else {
                 shape
                     .foregroundColor(Constants.themeColor)
             }
+            shape.strokeBorder(lineWidth: Constants.borderLineWidth)
+                .foregroundColor(borderColor)
             content
                 .opacity(rotation < 90 ? 1.0 : 0.0)
         }
