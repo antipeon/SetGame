@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		FA19BBDF2865E0C600D6BB43 /* Shake.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA19BBDE2865E0C600D6BB43 /* Shake.swift */; };
+		FA22C7332879AB7700590E5F /* ScoreTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA22C7322879AB7700590E5F /* ScoreTracker.swift */; };
 		FA3E37D32867E32E00D4063F /* Cardify.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3E37D22867E32E00D4063F /* Cardify.swift */; };
 		FA42AE9C285F609500E1FBD6 /* Diamond.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA42AE9B285F609500E1FBD6 /* Diamond.swift */; };
 		FA61332F2850E97D00BB4E0D /* AspectVGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA61332E2850E97D00BB4E0D /* AspectVGrid.swift */; };
@@ -24,6 +25,7 @@
 
 /* Begin PBXFileReference section */
 		FA19BBDE2865E0C600D6BB43 /* Shake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shake.swift; sourceTree = "<group>"; };
+		FA22C7322879AB7700590E5F /* ScoreTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreTracker.swift; sourceTree = "<group>"; };
 		FA3E37D22867E32E00D4063F /* Cardify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cardify.swift; sourceTree = "<group>"; };
 		FA42AE9B285F609500E1FBD6 /* Diamond.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diamond.swift; sourceTree = "<group>"; };
 		FA61332E2850E97D00BB4E0D /* AspectVGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AspectVGrid.swift; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 				FADDAA0B284CE43100FC8B63 /* Card.swift */,
 				FADDAA0D284CE63600FC8B63 /* Deck.swift */,
 				FADDAA0F284CE88100FC8B63 /* Game.swift */,
+				FA22C7322879AB7700590E5F /* ScoreTracker.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -201,6 +204,7 @@
 				FADDAA10284CE88100FC8B63 /* Game.swift in Sources */,
 				FA61332F2850E97D00BB4E0D /* AspectVGrid.swift in Sources */,
 				FADDA9FF284CE32200FC8B63 /* ContentView.swift in Sources */,
+				FA22C7332879AB7700590E5F /* ScoreTracker.swift in Sources */,
 				FADDAA0C284CE43100FC8B63 /* Card.swift in Sources */,
 				FADDAA12284CEC7B00FC8B63 /* CardView.swift in Sources */,
 				FA19BBDF2865E0C600D6BB43 /* Shake.swift in Sources */,

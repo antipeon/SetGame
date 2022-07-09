@@ -14,7 +14,11 @@ struct Game {
     private(set) var matchedCards = [Card]()
     private(set) var discardedCards = [Card]()
     
-    private(set) var score = 0
+    private(set) var scoreTracker = ScoreTracker()
+    
+    var score: Int {
+        scoreTracker.score
+    }
     
     private mutating func drawCard() -> Card? {
         guard let card = deck.draw() else {
@@ -49,7 +53,7 @@ struct Game {
         //deselection
         if let index = selectedCards.firstIndex(of: card) {
             if selectedCards.count < Constants.matchedNumber {
-                score -= Constants.deselectPunishment
+                scoreTracker.deselectionHappened.toggle()
                 selectedCards.remove(at: index)
             }
             
@@ -69,11 +73,11 @@ struct Game {
             let isMatch = checkMatch()
             if isMatch {
                 print("it's a match")
-                score += Constants.matchReward
+                scoreTracker.matchHappened.toggle()
             } else {
                 print("it's a mismatch")
                 mismatchHappened = true
-                score -= Constants.mismatchPunishment
+                scoreTracker.mismatchHappened.toggle()
             }
         }
         
@@ -108,7 +112,7 @@ struct Game {
     }
     
     private mutating func discardLastMatchedCards() {
-        guard matchedCards.count >= 3 else {
+        guard matchedCards.count >= Constants.matchedNumber else {
             fatalError("no match happened")
         }
         discardedCards += matchedCards[matchedCards.endIndex - Constants.matchedNumber..<matchedCards.endIndex]
@@ -129,7 +133,7 @@ struct Game {
     }
     
     mutating func dealMoreCards() {
-        score -= Constants.dealMorePunishment
+        scoreTracker.dealMoreHappened.toggle()
         if selectedCards.count == Constants.matchedNumber {
             removeCardsIfMatchedAndClearSelected()
         }
@@ -138,11 +142,6 @@ struct Game {
     
     struct Constants {
         static let initialNumberOfCards = 24
-        static let matchedNumber = 3
-        
-        static let deselectPunishment = 1
-        static let matchReward = 3
-        static let mismatchPunishment = 2
-        static let dealMorePunishment = 3
+        static let matchedNumber = 3        
     }
 }

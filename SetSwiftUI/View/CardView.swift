@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct CardView: View {
+    typealias Card = Game.Card
+    
     private let card: Card
     private let isSelected: Bool
     private let isMatched: Bool

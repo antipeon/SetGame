@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
+    typealias Card = Game.Card
+    
     @ObservedObject var gameViewModel: ViewModel
     
     @State var initialCardsNotDealt = true
@@ -53,6 +55,7 @@ struct ContentView: View {
         AspectVGrid(items: gameViewModel.cardsInPlay, aspectRatio: Constants.cardAspectRatio, content: {
             card in
             cardView(for: card)
+                .padding(Constants.paddingLength)
                 .zIndex(zIndex(for: card, in: gameViewModel.cardsInPlay))
         })
     }
@@ -61,7 +64,7 @@ struct ContentView: View {
         ScrollView {
             GeometryReader {
                 geometry in
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 80))], content: {
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: Constants.minCardWidth))], content: {
                     ForEach(gameViewModel.cardsInPlay, id: \.self) {
                         cardView(for: $0)
                             .zIndex(zIndex(for: $0, in: gameViewModel.cardsInPlay))
@@ -148,11 +151,13 @@ struct ContentView: View {
     
     // MARK: - Constants
     struct Constants {
-        static var cardAspectRatio: CGFloat = 2/3
-        static var maxCardsForSwitchToScroll = 42
-        static var deckWidth: CGFloat = 80
-        static var dealAnimationDuration = 0.75
-        static var choosingAnimationDuration = 0.5
+        static let cardAspectRatio: CGFloat = 2/3
+        static let maxCardsForSwitchToScroll = 42
+        static let deckWidth: CGFloat = 80
+        static let dealAnimationDuration = 0.75
+        static let choosingAnimationDuration = 0.5
+        static let paddingLength: CGFloat = 2
+        static let minCardWidth: CGFloat = 80
     }
 }
 

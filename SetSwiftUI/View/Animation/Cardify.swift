@@ -34,7 +34,7 @@ struct Cardify: AnimatableModifier {
     func body(content: Content) -> some View {
         ZStack {
             let shape = RoundedRectangle(cornerRadius: Constants.cornerRadius)
-            if rotation < 90 {
+            if isFaceUpDominant {
                 shape
                     .foregroundColor(Constants.cardFrontColor)
             } else {
@@ -44,9 +44,13 @@ struct Cardify: AnimatableModifier {
             shape.strokeBorder(lineWidth: Constants.borderLineWidth)
                 .foregroundColor(borderColor)
             content
-                .opacity(rotation < 90 ? 1.0 : 0.0)
+                .opacity(isFaceUpDominant ? 1.0 : 0.0)
         }
         .rotation3DEffect(Angle.degrees(rotation), axis: (0, 1, 0))
+    }
+    
+    private var isFaceUpDominant: Bool {
+        rotation < 90
     }
     
     private var borderColor: Color {

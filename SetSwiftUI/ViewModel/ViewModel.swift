@@ -8,6 +8,8 @@
 import Foundation
 
 class ViewModel: ObservableObject {
+    typealias Card = Game.Card
+    
     static func createGame() -> Game {
         return Game()
     }

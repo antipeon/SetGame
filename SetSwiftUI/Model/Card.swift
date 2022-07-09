@@ -13,16 +13,19 @@ enum ThreeState: Int, CaseIterable {
     case three
 }
 
-struct Card: Identifiable {
-    var id = UUID()
-    var number: ThreeState
-    var shape: ThreeState
-    var shading: ThreeState
-    var color: ThreeState
-    var isFaceUp: Bool = false
+extension Game {
+    struct Card: Identifiable {
+        var id = UUID()
+        var number: ThreeState
+        var shape: ThreeState
+        var shading: ThreeState
+        var color: ThreeState
+        var isFaceUp: Bool = false
+    }
 }
 
-extension Card {
+extension Game.Card {
+    typealias Card = Game.Card
     func isMatch(with secondCard: Card, and thirdCard: Card) -> Bool {
         isNumberMatch(with: secondCard, and: thirdCard) ||
         isShapeMatch(with: secondCard, and: thirdCard) ||
@@ -45,10 +48,9 @@ extension Card {
     private func isColorMatch(with secondCard: Card, and thirdCard: Card) -> Bool {
         color == secondCard.color && secondCard.color == thirdCard.color
     }
-
 }
 
-extension Card: Hashable {
+extension Game.Card: Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
