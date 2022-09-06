@@ -144,9 +144,13 @@ struct ContentView: View {
     }
     
     private var scoreLabel: some View {
-        Text("\(gameViewModel.score)")
+        let str = "\(gameViewModel.score)"
+        
+        return Text(str)
             .font(.largeTitle)
             .padding(.trailing)
+            .transition(.identity)
+            .id(str)
     }
     
     // MARK: - Constants
