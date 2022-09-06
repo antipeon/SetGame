@@ -61,9 +61,9 @@ struct ContentView: View {
     }
     
     private var scrollGridView: some View {
-        ScrollView {
-            GeometryReader {
-                geometry in
+        GeometryReader {
+            geometry in
+            ScrollView {
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: Constants.minCardWidth))], content: {
                     ForEach(gameViewModel.cardsInPlay, id: \.self) {
                         cardView(for: $0)
@@ -72,7 +72,6 @@ struct ContentView: View {
                     }
                 })
             }
-            
         }
     }
     
